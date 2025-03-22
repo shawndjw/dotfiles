@@ -1,0 +1,8 @@
+[user]
+	email = shawn.wilcox@blood.ca
+	name = Shawn Wilcox
+	signingkey = DB5483A94E906946
+[commit]
+	gpgsign = true
+[core]
+	editor = nvim
