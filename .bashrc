@@ -15,5 +15,8 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 
+set -o vi
+
 alias pkm='nvim ~/Documents/PKM/'
 alias pacman='sudo pacman'
+
