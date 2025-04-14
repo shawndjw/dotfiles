@@ -6,3 +6,5 @@
 	gpgsign = true
 [core]
 	editor = nvim
+[gpg]
+  program = /home/shawn/.local/bin/gpg-pinentry-loopback

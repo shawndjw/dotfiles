@@ -19,6 +19,11 @@ export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 
 set -o vi
 
+function md() {
+  pandoc --to pdf $1 > /tmp/$1.pdf
+  xdg-open /tmp/$1.pdf
+}
+
 alias pkm='nvim ~/Documents/PKM/'
 alias pacman='sudo pacman'
 alias adsearch='. ~/.ldap_env; LDAPTLS_REQCERT=never ldapsearch -y ~/.ldap -x -o ldif-wrap=no -H $LDAP_HOST -s sub -D "$LDAP_USER" -b "$LDAP_BASE" -W'

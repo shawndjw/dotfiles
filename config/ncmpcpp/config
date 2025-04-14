@@ -12,3 +12,10 @@ mpd_crossfade_time = "5"
 playlist_disable_highlight_delay = "0"  
 playlist_display_mode = "columns"  
 playlist_show_remaining_time = "yes"
+
+def_key "j"
+  scroll_down
+
+def key "k"
+  scroll_up
+
