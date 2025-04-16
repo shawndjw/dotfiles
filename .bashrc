@@ -24,6 +24,7 @@ function md() {
   xdg-open /tmp/$1.pdf
 }
 
+alias vi='nvim'
 alias pkm='nvim ~/Documents/PKM/'
 alias pacman='sudo pacman'
 alias adsearch='. ~/.ldap_env; LDAPTLS_REQCERT=never ldapsearch -y ~/.ldap -x -o ldif-wrap=no -H $LDAP_HOST -s sub -D "$LDAP_USER" -b "$LDAP_BASE" -W'
