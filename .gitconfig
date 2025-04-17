@@ -10,3 +10,11 @@
   program = /home/shawn/.local/bin/gpg-pinentry-loopback
 [push]
 	autoSetupRemote = true
+[fetch]
+	prune = true
+[alias]
+  cleanup = "!f() { \
+    git branch --merged main | \
+      grep -vE '(^\\*| main$| master$)' | \
+      xargs -r git branch -d; \
+  }; f"
