@@ -32,8 +32,9 @@ return {
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
 			})
-			lspconfig.robotframework_lsp.setup({
-				capabilities = capabilities,
+			lspconfig.yamlls.setup({})
+			lspconfig.robotframework_ls.setup({
+				cmd = { "/home/shawn/.local/share/nvim/mason/packages/robotframework-lsp/venv/bin/robotframework_ls" },
 			})
 			lspconfig.perlnavigator.setup({})
 			lspconfig.bashls.setup({})
@@ -41,8 +42,11 @@ return {
 			lspconfig.bicep.setup({
 				cmd = { "/home/shawn/.local/bin/bicep-lsp" },
 			})
-			lspconfig.powershell_es.setup({
+			lspconfig.jsonls.setup({
 				capabilities = capabilities,
+			})
+			lspconfig.powershell_es.setup({
+        capabilities = capabilities,
 			})
 			lspconfig.markdown_oxide.setup({
 				capabilities = vim.tbl_deep_extend("force", capabilities, {

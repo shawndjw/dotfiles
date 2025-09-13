@@ -9,7 +9,8 @@
     "disk",
     "wireplumber",
     "battery",
-    "clock"
+    "clock",
+    "tray"
   ],
   "cpu": {
     "interval": 5,
