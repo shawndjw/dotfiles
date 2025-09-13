@@ -26,6 +26,7 @@ actions=1
 default-timeout=10000
 ignore-timeout=0
 group-by=none
+on-notify=exec paplay /usr/share/sounds/freedesktop/stereo/message.oga
 
 [urgency=normal]
 border-color=#89b4fa
