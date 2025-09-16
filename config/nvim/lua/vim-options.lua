@@ -6,6 +6,6 @@ vim.cmd("set number")
 vim.cmd("set ignorecase")
 vim.cmd("set smartcase")
 vim.cmd("set inccommand=split")
-vim.g.mapleader = " "
+vim.g.mapleader = ","
 vim.keymap.set("n", "<leader>s", "<cmd>split<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>v", "<cmd>vsplit<CR>", { noremap = true, silent = true })
