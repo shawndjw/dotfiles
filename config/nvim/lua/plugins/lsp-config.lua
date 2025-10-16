@@ -22,41 +22,26 @@ return {
 			local capabilities =
 				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-			local lspconfig = require("lspconfig")
-			lspconfig.solargraph.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.html.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.yamlls.setup({})
-			lspconfig.robotframework_ls.setup({
-				cmd = { "/home/shawn/.local/share/nvim/mason/packages/robotframework-lsp/venv/bin/robotframework_ls" },
-			})
-			lspconfig.perlnavigator.setup({})
-			lspconfig.bashls.setup({})
-			lspconfig.pylsp.setup({})
-			lspconfig.bicep.setup({
-				cmd = { "/home/shawn/.local/bin/bicep-lsp" },
-			})
-			lspconfig.jsonls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.powershell_es.setup({
-        capabilities = capabilities,
-			})
-			lspconfig.markdown_oxide.setup({
-				capabilities = vim.tbl_deep_extend("force", capabilities, {
-					workspace = {
-						didChangeWatchedFiles = {
-							dynamicRegistration = true,
-						},
+			-- local lsp = vim.lsp.config
+			local servers = {
+				solargraph = { capabilities = capabilities },
+				html = { capabilities = capabilities },
+				lua_ls = { capabilities = capabilities },
+				yamlls = {},
+				robotframework_ls = {
+					cmd = {
+						"/home/shawn/.local/share/nvim/mason/packages/robotframework-lsp/venv/bin/robotframework_ls",
 					},
-				}),
-			})
+				},
+				perlnavigator = {},
+				bashls = {},
+				pylsp = {},
+				bicep = {
+					cmd = { "/home/shawn/.local/bin/bicep-lsp" },
+				},
+				jsonls = { capabilities = capabilities },
+				powershell_es = { capabilities = capabilities },
+			}
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
