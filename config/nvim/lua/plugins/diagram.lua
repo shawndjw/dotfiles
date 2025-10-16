@@ -5,11 +5,27 @@ return {
 			"3rd/image.nvim",
 		},
 		opts = { -- you can just pass {}, defaults below
+			-- Disable automatic rendering on buffer render
+			events = {
+				render_buffer = {},
+				clear_buffer = { "BufLeave" },
+			},
+			keys = {
+				{
+					"K", -- or any key you prefer
+					function()
+						require("diagram").show_diagram_hover()
+					end,
+					mode = "n",
+					ft = { "markdown", "norg" }, -- Only in these filetypes
+					desc = "Show diagram in new tab",
+				},
+			},
 			renderer_options = {
 				mermaid = {
 					background = "transparent", -- nil | "transparent" | "white" | "#hex"
-					theme = "dark", -- nil | "default" | "dark" | "forest" | "neutral"
-					scale = 1, -- nil | 1 (default) | 2  | 3 | ...
+					theme = nil, -- nil | "default" | "dark" | "forest" | "neutral"
+					scale = 2, -- nil | 1 (default) | 2  | 3 | ...
 					width = nil, -- nil | 800 | 400 | ...
 					height = nil, -- nil | 600 | 300 | ...
 				},
