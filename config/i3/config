@@ -72,7 +72,7 @@ tiling_drag modifier titlebar
 
 # start a terminal
 bindsym $mod+Q exec i3-sensible-terminal
-bindsym $mod+w exec i3-sensible-terminal --title="Work" ssh -Y d12vm.lan
+bindsym $mod+w exec i3-sensible-terminal --title="Work" -e ssh -Y d12vm.lan
 bindsym $mod+Shift+w exec ssh d12vm.lan -Y -t /opt/google/chrome/chrome
 
 # kill focused window
