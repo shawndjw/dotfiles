@@ -25,7 +25,7 @@ function md() {
 }
 
 alias vi='nvim'
-alias pkm='nvim ~/Documents/PKM/'
+alias pkm='cd ~/Documents/PKM/; nvim .'
 alias pacman='sudo pacman'
 alias adsearch='. ~/.ldap_env; LDAPTLS_REQCERT=never ldapsearch -y ~/.ldap -x -o ldif-wrap=no -H $LDAP_HOST -s sub -D "$LDAP_USER" -b "$LDAP_BASE" -W'
 alias sw='ssh -Y d12vm.lan'
@@ -64,3 +64,8 @@ function dlogs() {
 function plogs() {
   az monitor log-analytics query --workspace 0a451818-101f-4600-a7a1-65431a326483 --analytics-query "$@"
 }
+
+# add Pulumi to the PATH
+export PATH=$PATH:/home/shawn/.pulumi/bin
+
+export TERMINAL=alacritty 
