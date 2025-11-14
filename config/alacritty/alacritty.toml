@@ -1,0 +1,30 @@
+general.import = [
+  # uncomment the flavour you want below:
+  #"~/.config/alacritty/catppuccin-latte.toml"
+  # "~/.config/alacritty/catppuccin-frappe.toml"
+  "~/.config/alacritty/catppuccin-macchiato.toml"
+  # "~/.config/alacritty/catppuccin-mocha.toml"
+]
+
+[window]
+# dimensions = { columns = 120, lines = 30 }
+# padding = { x = 10, y = 10 }
+dynamic_padding = true
+decorations = "none" # or "none", "buttonless"
+opacity = 0.9 # 0.0 to 1.0
+
+# Font settings
+[font]
+size = 10.0
+#
+#[font.normal]
+#family = "JetBrainsMono Nerd Font"
+#style = "Regular"
+#
+#[font.bold]
+#family = "JetBrainsMono Nerd Font"
+#style = "Bold"
+#
+#[font.italic]
+#family = "JetBrainsMono Nerd Font"
+#style = "Italic"
