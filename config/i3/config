@@ -25,6 +25,9 @@ font pango:monospace 8
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
+# Place laptop monitor right of external monitor
+exec --no-startup-id xrandr --output eDP-1 --primary --right-of HDMI-1
+
 # Start the music player daemon
 exec --no-startup-id /usr/bin/mpd
 
@@ -42,7 +45,7 @@ exec_always --no-startup-id picom  -b --config ~/.config/picom/picom.conf
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -72,8 +75,8 @@ tiling_drag modifier titlebar
 
 # start a terminal
 bindsym $mod+Q exec i3-sensible-terminal
-bindsym $mod+w exec i3-sensible-terminal --title="Work" -e ssh -Y d12vm.lan
-bindsym $mod+Shift+w exec ssh d12vm.lan -Y -t /opt/google/chrome/chrome
+bindsym $mod+w exec i3-sensible-terminal --title="Work" -e ssh -Y 10.0.0.11
+bindsym $mod+Shift+w exec ssh 10.0.0.11 -Y -t /home/shawn/apps/zen/zen
 
 # kill focused window
 #bindsym $mod+Shift+q kill
@@ -134,6 +137,9 @@ bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
+
+# keybinding to lock screen
+bindsym $mod+z exec "~/.config/i3/lock.sh"
 
 # focus the child container
 #bindsym $mod+d focus child
