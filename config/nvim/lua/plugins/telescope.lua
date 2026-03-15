@@ -1,12 +1,38 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.8",
+    -- tag = "0.1.8",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
+      "xiyaowong/telescope-emoji.nvim",
     },
     config = function()
+      require("telescope").setup {
+        defaults = {
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--hidden",
+            "--glob=!.git/",
+          },
+        },
+        extensions = {
+          ["live-grep-args"] = {
+            auto_quoting = true, -- enable/disable auto-quoting
+          },
+        },
+        pickers = {
+          find_files = {
+            hidden = true,
+          },
+        },
+      }
       local builtin = require("telescope.builtin")
       vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
       vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
