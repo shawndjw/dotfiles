@@ -24,12 +24,32 @@ function md() {
   xdg-open /tmp/$1.pdf
 }
 
+function pkm() {
+  cd ~/Documents/PKM/
+  if [ -z "$1" ]; then
+    markdown-oxide daily
+  else
+    markdown-oxide $1
+  fi
+}
+
+function wod() {
+  cd ~/Documents/PKM/Workouts/Crossfit
+  if [ -z "$1" ]; then
+    markdown-oxide daily
+  else
+    markdown-oxide $1
+  fi
+}
+
+alias alz='cd ~/work/ito/cbs-alz-bicep && nvim .'
 alias vi='nvim'
-alias pkm='cd ~/Documents/PKM/; nvim .'
 alias pacman='sudo pacman'
 alias adsearch='. ~/.ldap_env; LDAPTLS_REQCERT=never ldapsearch -y ~/.ldap -x -o ldif-wrap=no -H $LDAP_HOST -s sub -D "$LDAP_USER" -b "$LDAP_BASE" -W'
-alias sw='ssh -Y d12vm.lan'
+alias sw='ssh -Y 10.0.0.11'
 alias k='kubectl'
+alias arecord='arecord -D hw:4,0 -f cd -t wav'
+
 
 function ns() {
   if [ ! -z "$1" ]; then
@@ -39,23 +59,108 @@ function ns() {
   echo "Current namespace: $NS"
 }
 
-function aksdev01() {
-  az account set --subscription fcc63316-3030-43c9-b243-7c0a2a2c66f1
-  az aks get-credentials --resource-group rg-dev-aks-01-cc --name aks-dev-01-cc --overwrite-existing
-  kubelogin convert-kubeconfig -l azurecli
+function aks() {
+  local INSTANCE=$1
+  local AKS=""
+  case "$INSTANCE" in
+    dev01)
+      SUBSCRIPTION=fcc63316-3030-43c9-b243-7c0a2a2c66f1
+      RG="rg-dev-aks-01-cc"
+      AKS="aks-dev-01-cc"
+      ;;
+    qa01)
+      SUBSCRIPTION=61e635c2-c3cd-4e2e-a9e8-2ea0d4a7377d
+      RG="rg-qa-aks-01-cc"
+      AKS="aks-qa-01-cc"
+      ;;
+    prd01)
+      SUBSCRIPTION=d504d08e-be2c-4147-81ae-f98a69bd2c51
+      RG="rg-prd-aks-01-cc"
+      AKS="aks-prd-01-cc"
+      ;;
+    drprd01)
+      SUBSCRIPTION=d504d08e-be2c-4147-81ae-f98a69bd2c51
+      RG="rg-prd-aks-01-ce"
+      AKS="aks-prd-01-ce"
+      ;;
+    "")
+      echo "Usage: aks <dev01|qa01|prd01|drprd01>" >&2
+      ;;
+    *)
+      echo "Invalid instance: '$INSTANCE'" >&2
+      echo "Usage: aks <dev01|qa01|prd01|drprd01>" >&2
+      ;;
+  esac
+
+  if [ ! -z "$AKS" ]; then
+    echo "[Info] Connecting to $(echo $INSTANCE | tr '[:lower:]' '[:upper:]') server: $AKS"
+    az account set --subscription $SUBSCRIPTION
+    az aks get-credentials --resource-group $RG --name $AKS --overwrite-existing
+    kubelogin convert-kubeconfig -l azurecli
+  fi
 }
 
-function aksqa01() {
-  az account set --subscription 61e635c2-c3cd-4e2e-a9e8-2ea0d4a7377d
-  az aks get-credentials --resource-group rg-qa-aks-01-cc --name aks-qa-01-cc --overwrite-existing
-  kubelogin convert-kubeconfig -l azurecli
+
+
+function azpsql() {
+  local INSTANCE=$1
+  local SERVER=""
+  case "$INSTANCE" in
+    dev)
+      SERVER="psql-dev-aks-02-cc.postgres.database.azure.com"
+      ;;
+    qa)
+      SERVER="psql-qa-aks-02-cc.postgres.database.azure.com"
+      ;;
+    prd)
+      SERVER="psql-prd-aks-01-cc.postgres.database.azure.com"
+      ;;
+    "")
+      echo "Usage: azpsql <dev|qa|prd>" >&2
+      exit 1
+      ;;
+    *)
+      echo "Invalid instance: '$INSTANCE'" >&2
+      echo "Usage: azpsql <dev|qa|prd>" >&2
+      exit 1
+      ;;
+  esac
+
+  token=$(az account get-access-token --resource-type oss-rdbms --query "accessToken" -o tsv)
+  echo "[Info] Connecting to $(echo $INSTANCE | tr '[:lower:]' '[:upper:]') server: $SERVER"
+  PGPASSWORD=$token psql -h $SERVER -U "ALZ - Database Administrators" postgres
 }
 
-function aksprd01() {
-  az account set --subscription d504d08e-be2c-4147-81ae-f98a69bd2c51
-  az aks get-credentials --resource-group rg-prd-aks-01-cc --name aks-prd-01-cc --overwrite-existing
-  kubelogin convert-kubeconfig -l azurecli
+function azmysql() {
+  local INSTANCE=$1
+  local SERVER=""
+  case "$INSTANCE" in
+    dev)
+      SERVER="mysql-dev-aks-01-cc.mysql.database.azure.com"
+      ;;
+    qa)
+      SERVER="mysql-qa-aks-01-cc.mysql.database.azure.com"
+      ;;
+    prd)
+      SERVER="mysql-prd-aks-01-cc.mysql.database.azure.com"
+      ;;
+    "")
+      echo "Usage: azmysql <dev|qa|prd>" >&2
+      exit 1
+      ;;
+    *)
+      echo "Invalid instance: '$INSTANCE'" >&2
+      echo "Usage: azmysql <dev|qa|prd>" >&2
+      exit 1
+      ;;
+  esac
+
+  token=$(az account get-access-token --resource-type oss-rdbms --query "accessToken" -o tsv)
+  echo "[Info] Connecting to $(echo $INSTANCE | tr '[:lower:]' '[:upper:]') server: $SERVER"
+  mariadb -h $SERVER --user "ALZ - Database Administrators" --password="$token"
 }
+
+
 
 function dlogs() {
   az monitor log-analytics query --workspace 942defc2-e8bf-411e-b090-811894adc90e --analytics-query "$@"
@@ -68,4 +173,4 @@ function plogs() {
 # add Pulumi to the PATH
 export PATH=$PATH:/home/shawn/.pulumi/bin
 
-export TERMINAL=alacritty 
+export TERMINAL=kitty
