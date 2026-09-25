@@ -4,58 +4,99 @@ return {
 		local conf = {
 			-- For customization, refer to Install > Configuration in the Documentation/Readme
 			openai_api_key = { "pass", "OPENAI_API_KEY" },
-			copilot = {
-				endpoint = "https://api.githubcopilot.com/chat/completions",
-				secret = {
-					"bash",
-					"-c",
-					"cat ~/.config/github-copilot/apps.json | sed -e 's/.*oauth_token...//;s/\".*//",
-				},
-			},
 
 			providers = {
-        copilot = {},
+				copilot = {
+					endpoint = "https://api.githubcopilot.com/chat/completions",
+					secret = {
+						"bash",
+						"-c",
+						"cat ~/.config/github-copilot/apps.json | sed -e 's/.*oauth_token...//;s/\".*//'",
+					},
+				},
 			},
 			agents = {
+				-- {
+				-- 	name = "ChatGPT4o",
+				-- 	chat = true,
+				-- 	command = false,
+				-- 	disable = true,
+				-- 	-- string with model name or table with model name and parameters
+				-- 	model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
+				-- 	-- system prompt (use this to specify the persona/role of the AI)
+				-- 	system_prompt = require("gp.defaults").chat_system_prompt,
+				-- },
+				-- {
+				-- 	provider = "openai",
+				-- 	name = "ChatGPT4o-mini",
+				-- 	chat = true,
+				-- 	command = false,
+				-- 	disable = true,
+				-- 	-- string with model name or table with model name and parameters
+				-- 	model = { model = "gpt-4o-mini", temperature = 1.1, top_p = 1 },
+				-- 	-- system prompt (use this to specify the persona/role of the AI)
+				-- 	system_prompt = require("gp.defaults").chat_system_prompt,
+				-- },
+				-- {
+				-- 	provider = "openai",
+				-- 	name = "ChatGPT-o3-mini",
+				-- 	chat = true,
+				-- 	command = false,
+				-- 	disable = true,
+				-- 	-- string with model name or table with model name and parameters
+				-- 	model = { model = "o3-mini", temperature = 1.1, top_p = 1 },
+				-- 	-- system prompt (use this to specify the persona/role of the AI)
+				-- 	system_prompt = require("gp.defaults").chat_system_prompt,
+				-- },
 				{
-					name = "ChatGPT4o",
+					provider = "copilot",
+					name = "GPT-4o",
 					chat = true,
-					command = false,
+					command = true,
 					-- string with model name or table with model name and parameters
 					model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
-					-- system prompt (use this to specify the persona/role of the AI)
-					system_prompt = require("gp.defaults").chat_system_prompt,
-				},
-				{
-					provider = "openai",
-					name = "ChatGPT4o-mini",
-					chat = true,
-					command = false,
-					-- string with model name or table with model name and parameters
-					model = { model = "gpt-4o-mini", temperature = 1.1, top_p = 1 },
-					-- system prompt (use this to specify the persona/role of the AI)
-					system_prompt = require("gp.defaults").chat_system_prompt,
-				},
-				{
-					provider = "openai",
-					name = "ChatGPT-o3-mini",
-					chat = true,
-					command = false,
-					-- string with model name or table with model name and parameters
-					model = { model = "o3-mini", temperature = 1.1, top_p = 1 },
 					-- system prompt (use this to specify the persona/role of the AI)
 					system_prompt = require("gp.defaults").chat_system_prompt,
 				},
 				{
 					provider = "copilot",
-					name = "ChatCopilot",
+					name = "GPT-5-mini",
 					chat = true,
-					command = false,
+					command = true,
 					-- string with model name or table with model name and parameters
-					model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
+					model = { model = "gpt-5-mini", temperature = 1.1, top_p = 1 },
 					-- system prompt (use this to specify the persona/role of the AI)
 					system_prompt = require("gp.defaults").chat_system_prompt,
 				},
+				{
+					provider = "copilot",
+					name = "claude-opus-4.7",
+					chat = true,
+					command = true,
+					-- string with model name or table with model name and parameters
+					model = { model = "claude-opus-4.7" },
+					-- system prompt (use this to specify the persona/role of the AI)
+					system_prompt = require("gp.defaults").chat_system_prompt,
+				},
+				{
+					provider = "copilot",
+					name = "claude-opus-4.8",
+					chat = true,
+					command = true,
+					-- string with model name or table with model name and parameters
+					model = { model = "claude-opus-4.8" },
+					-- system prompt (use this to specify the persona/role of the AI)
+					system_prompt = require("gp.defaults").chat_system_prompt,
+				},
+
+				-- {
+				-- 	name = "MyCustomAgent",
+				-- 	provider = "copilot",
+				-- 	chat = true,
+				-- 	command = true,
+				-- 	model = { model = "gpt-4-turbo" },
+				-- 	system_prompt = "Answer any query with just: Sure thing..",
+				-- },
 			},
 		}
 		require("gp").setup(conf)
