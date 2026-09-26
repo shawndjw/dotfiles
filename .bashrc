@@ -73,6 +73,11 @@ function aks() {
       RG="rg-qa-aks-01-cc"
       AKS="aks-qa-01-cc"
       ;;
+    drqa01)
+      SUBSCRIPTION=61e635c2-c3cd-4e2e-a9e8-2ea0d4a7377d
+      RG="rg-qa-aks-01-ce"
+      AKS="aks-qa-01-ce"
+      ;;
     prd01)
       SUBSCRIPTION=d504d08e-be2c-4147-81ae-f98a69bd2c51
       RG="rg-prd-aks-01-cc"
@@ -128,7 +133,8 @@ function azpsql() {
 
   token=$(az account get-access-token --resource-type oss-rdbms --query "accessToken" -o tsv)
   echo "[Info] Connecting to $(echo $INSTANCE | tr '[:lower:]' '[:upper:]') server: $SERVER"
-  PGPASSWORD=$token psql -h $SERVER -U "ALZ - Database Administrators" postgres
+  #PGPASSWORD=$token psql -h $SERVER -U "ALZ - Database Administrators" postgres
+  PGPASSWORD=$token psql -h $SERVER -U "Shawn.Wilcox@blood.ca" postgres
 }
 
 function azmysql() {
